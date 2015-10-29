@@ -110,12 +110,12 @@ function createMarkers(data) {
 }
 function createMyMarker () {
     var image = "stickfigure.png";
-    var myMarker = new google.maps.Marker {
+    var myMarker = new google.maps.Marker({
         position: me,
         map: map,
         image: image,
         title: myLogin + "-This is you"
-    };
+    });
     google.maps.event.addListener(myMarker, 'click', function() {
             infowindow.setContent(this.title);
             infowindow.open(map, this);
