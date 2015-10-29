@@ -107,11 +107,12 @@ function createMarkers(data) {
             infowindow.open(map, this);
         });
     }
+
 }
 function createMyMarker () {
     var image = "stickfigure.png";
     var myMarker = new google.maps.Marker {
-        position: new google.maps.LatLng(myLat, myLng),
+        position: me,
         map: map,
         image: image,
         title: myLogin + "-This is you"
@@ -120,6 +121,7 @@ function createMyMarker () {
             infowindow.setContent(this.title);
             infowindow.open(map, this);
         });
+    map.panTo(me);
 }
 function distanceFromMe(lat, lng) {
     var R = 6371000; // metres
