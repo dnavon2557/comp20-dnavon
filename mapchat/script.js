@@ -113,7 +113,7 @@ function createMyMarker () {
     var myMarker = new google.maps.Marker({
         position: me,
         map: map,
-        image: image,
+        icon: image,
         title: myLogin + "-This is you"
     });
     google.maps.event.addListener(myMarker, 'click', function() {
