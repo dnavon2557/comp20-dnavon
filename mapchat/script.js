@@ -11,7 +11,6 @@ var myOptions = {
 }
 var map;
 var infowindow = new google.maps.InfoWindow();
-//var infowindow = new google.maps.InfoWindow();
 
 
 function init() {
@@ -121,6 +120,7 @@ function createMyMarker () {
             infowindow.setContent(this.title);
             infowindow.open(map, this);
         });
+    myMarker.setMap(map);
     map.panTo(me);
 }
 function distanceFromMe(lat, lng) {
