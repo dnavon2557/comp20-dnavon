@@ -77,7 +77,7 @@ function createMarkers(data) {
     var content;
     var miles_away;
     var contentString;// = new Object();
-    var infowindows = new Array();
+    var infowindow = new google.maps.InfoWindow();
     data = JSON.parse(data);
     for (var i = 0; i <data.length; i++) {
         login = data[i]["login"];
@@ -85,24 +85,24 @@ function createMarkers(data) {
         lng = data[i]["lng"];
         message = data[i]["message"];
         loc = new google.maps.LatLng(lat,lng);
+        contentString = "Login: " +login+ "\nMessage: " +message+ "\nMiles Away: " +miles_away;
         markers[i] = new google.maps.Marker({
             position: loc,
-            title: login
+            title: contentString
         });
         markers[i].setMap(map);
         miles_away = distanceFromMe(lat, lng);
-        contentString = "Login: " +login+ "\nMessage: " +message+ "\nMiles Away: " +miles_away;
-        infowindows[i] = new google.maps.InfoWindow({
-            content: contentString
-        }); 
-        markers[i].addListener('click', function () {
-            infowindows[i].open(map, markers[i])
-        });
+        
         /*
-        google.maps.event.addListener(markers[i], 'click', function() {
-            infowindows[i].setContent(content);
-            infowindows[i].open(map, markers[i]);
+        markers[i].addListener('click', function () {
+            setContent(this.title)
+            infowindows[i].open(map, markers[i])
         });*/
+        
+        google.maps.event.addListener(markers[i], 'click', function() {
+            infowindow.setContent(this.title);
+            infowindow.open(map, this);
+        });
     }
 }
 
