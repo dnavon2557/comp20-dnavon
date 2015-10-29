@@ -10,7 +10,7 @@ var myOptions = {
 	mapTypeId: google.maps.MapTypeId.ROADMAP
 }
 var map;
- var infowindow = new google.maps.InfoWindow();
+var infowindow = new google.maps.InfoWindow();
 //var infowindow = new google.maps.InfoWindow();
 
 
@@ -89,7 +89,7 @@ function createMarkers(data) {
         contentString = "Login: " +login+ "\nMessage: " +message+ "\nMiles Away: " +miles_away;
         markers[i] = new google.maps.Marker({
             position: loc,
-            title: login
+            title: contentString
         });
         markers[i].setMap(map);
         miles_away = distanceFromMe(lat, lng);
