@@ -14,12 +14,13 @@ var infowindow = new google.maps.InfoWindow();
 
 
 function init() {
-	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
 	getMyLocation();
 }
 
+//gets location of user
 function getMyLocation() {
-	if (navigator.geolocation) {
+	if (navigator.geolocation) {//proceeds only if user has geolocation
 		navigator.geolocation.getCurrentPosition(function(position) {
 			myLat = position.coords.latitude;
 			myLng = position.coords.longitude;
@@ -32,11 +33,12 @@ function getMyLocation() {
 	}
 }
 
-
+//posts to server
 function postToServer () {
     var http = new XMLHttpRequest();
     var url = "https://secret-about-box.herokuapp.com/sendLocation";
-    var params = "login=" +myLogin+ "&lat=" +myLat+ "&lng=" +myLng+ "&message=" +myMessage;
+    var params = "login=" +myLogin+ "&lat=" +myLat+ "&lng=" 
+                +myLng+ "&message=" +myMessage;
     http.open("POST", url, true);
 
 //Send the proper header information along with the request
@@ -44,7 +46,7 @@ function postToServer () {
     http.setRequestHeader("Content-length", params.length);
     http.setRequestHeader("Connection", "close");
 
-    http.onreadystatechange = function() {//Call a function when the state changes.
+    http.onreadystatechange = function() {//proceeds when request is complete
         if(http.readyState == 4 && http.status == 200) {
             createMarkers(http.responseText);
             createMyMarker();
@@ -53,6 +55,7 @@ function postToServer () {
     http.send(params);
 }
 
+//create markers from JSON data
 function createMarkers(data) {
     var login;
     var lat;
@@ -61,9 +64,10 @@ function createMarkers(data) {
     var markers = new Array();
     var content;
     var miles_away;
-    var contentString;// = new Object();
-   
+    var contentString;
+
     data = JSON.parse(data);
+    //loop through for each object, maker a new marker with correct data at correct position
     for (var i = 0; i <data.length; i++) {
         login = data[i]["login"];
         if (login == myLogin) {continue;}
@@ -71,13 +75,16 @@ function createMarkers(data) {
         lng = data[i]["lng"];
         message = data[i]["message"];
         loc = new google.maps.LatLng(lat,lng);
-        contentString = "Login: " +login+ "<br>Message: " +message+ "<br>Miles Away: " +miles_away;
+        contentString = "Login: " +login+ "<br>Message: " 
+                        +message+ "<br>Miles Away: " +miles_away;
         markers[i] = new google.maps.Marker({
             position: loc,
             title: contentString
         });
         markers[i].setMap(map);
         miles_away = distanceFromMe(lat, lng);
+        //event listener corresponds tot he marker that was clicked on
+        //automatically by using "this"
         google.maps.event.addListener(markers[i], 'click', function() {
             infowindow.setContent(this.title);
             infowindow.open(map, this);
@@ -86,13 +93,14 @@ function createMarkers(data) {
 
 }
 
+//creates unique marker for user
 function createMyMarker () {
     var image = "stickfigure.png";
     var myMarker = new google.maps.Marker({
         position: me,
         map: map,
         icon: image,
-        title: myLogin + "-This is you"
+        title: myLogin + "-This is you!<br>Message: " +myMessage
     });
     google.maps.event.addListener(myMarker, 'click', function() {
             infowindow.setContent(this.title);
@@ -102,6 +110,7 @@ function createMyMarker () {
     map.panTo(me);
 }
 
+//calcs distance from user using Havershine Forumala
 function distanceFromMe(lat, lng) {
     var R = 6371000; // metres
     var φ1 = myLat.toRadians();
@@ -114,9 +123,11 @@ function distanceFromMe(lat, lng) {
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
     var d = R * c;
+    d = d / 1.60934; //convert to miles
     return d;
 }
 
+//adds radian conversion to Number
 Number.prototype.toRadians = function() {
    return this * Math.PI / 180;
 }
