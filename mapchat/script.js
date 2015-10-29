@@ -24,7 +24,7 @@ function getMyLocation() {
 		navigator.geolocation.getCurrentPosition(function(position) {
 			myLat = position.coords.latitude;
 			myLng = position.coords.longitude;
-            console.log(myLat+ " " +myLng);
+
             postToServer();
 			//renderMap();
 		});
@@ -64,6 +64,7 @@ function postToServer () {
         if(http.readyState == 4 && http.status == 200) {
             //alert(http.responseText);
             createMarkers(http.responseText);
+            createMyMarker();
         }
     }
     http.send(params);
@@ -82,6 +83,7 @@ function createMarkers(data) {
     data = JSON.parse(data);
     for (var i = 0; i <data.length; i++) {
         login = data[i]["login"];
+        if (login == myLogin) {continue;}
         lat = data[i]["lat"];
         lng = data[i]["lng"];
         message = data[i]["message"];
@@ -106,7 +108,19 @@ function createMarkers(data) {
         });
     }
 }
-
+function createMyMarker () {
+    var image = "stickfigure.png";
+    var myMarker = new google.maps.Marker {
+        position: new google.maps.LatLng(myLat, myLng),
+        map: map,
+        image: image,
+        title: myLogin + "-This is you"
+    }
+    google.maps.event.addListener(myMarker, 'click', function() {
+            infowindow.setContent(this.title);
+            infowindow.open(map, this);
+        });
+}
 function distanceFromMe(lat, lng) {
     var R = 6371000; // metres
     var φ1 = myLat.toRadians();
