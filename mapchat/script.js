@@ -89,7 +89,7 @@ function createMarkers(data) {
         contentString = "Login: " +login+ "\nMessage: " +message+ "\nMiles Away: " +miles_away;
         markers[i] = new google.maps.Marker({
             position: loc,
-            title: contentString
+            title: login
         });
         markers[i].setMap(map);
         miles_away = distanceFromMe(lat, lng);
