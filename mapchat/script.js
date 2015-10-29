@@ -3,7 +3,7 @@ var myLat = 0;
 var myLng = 0;
 var myMessage = "Hello World";
 var request = new XMLHttpRequest();
-var me = new google.maps.LatLng(myLat,myLng);
+var me;
 var myOptions = {
 	zoom: 13,
 	center: me,
@@ -23,7 +23,7 @@ function getMyLocation() {
 		navigator.geolocation.getCurrentPosition(function(position) {
 			myLat = position.coords.latitude;
 			myLng = position.coords.longitude;
-
+            me = new google.maps.LatLng(myLat,myLng);
             postToServer();
 			//renderMap();
 		});
