@@ -71,7 +71,7 @@ function createMarkers(data) {
         lng = data[i]["lng"];
         message = data[i]["message"];
         loc = new google.maps.LatLng(lat,lng);
-        contentString = "Login: " +login+ "\nMessage: " +message+ "\nMiles Away: " +miles_away;
+        contentString = "Login: " +login+ "<br>Message: " +message+ "<br>Miles Away: " +miles_away;
         markers[i] = new google.maps.Marker({
             position: loc,
             title: contentString
