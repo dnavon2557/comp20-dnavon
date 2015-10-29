@@ -10,6 +10,7 @@ var myOptions = {
 	mapTypeId: google.maps.MapTypeId.ROADMAP
 }
 var map;
+ var infowindow = new google.maps.InfoWindow();
 //var infowindow = new google.maps.InfoWindow();
 
 
@@ -77,7 +78,7 @@ function createMarkers(data) {
     var content;
     var miles_away;
     var contentString;// = new Object();
-    var infowindow = new google.maps.InfoWindow();
+   
     data = JSON.parse(data);
     for (var i = 0; i <data.length; i++) {
         login = data[i]["login"];
