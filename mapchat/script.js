@@ -116,7 +116,7 @@ function createMyMarker () {
         map: map,
         image: image,
         title: myLogin + "-This is you"
-    }
+    };
     google.maps.event.addListener(myMarker, 'click', function() {
             infowindow.setContent(this.title);
             infowindow.open(map, this);
