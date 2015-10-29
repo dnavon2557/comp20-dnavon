@@ -25,26 +25,11 @@ function getMyLocation() {
 			myLng = position.coords.longitude;
             me = new google.maps.LatLng(myLat,myLng);
             postToServer();
-			//renderMap();
 		});
 		
 	} else {
 		alert("Browser does not support geolocation");
 	}
-}
-
-function renderMap() {
-	/*me = new google.maps.LatLng(myLat, myLng);
-	map.panTo(me);
-	marker = new google.maps.Marker({
-		position: me,
-		title: myLogin
-	});
-	marker.setMap(map);
-	google.maps.event.addListener(marker, 'click', function() {
-		infowindow.setContent(marker.title);
-		infowindow.open(map, marker);
-	});*/
 }
 
 
@@ -61,7 +46,6 @@ function postToServer () {
 
     http.onreadystatechange = function() {//Call a function when the state changes.
         if(http.readyState == 4 && http.status == 200) {
-            //alert(http.responseText);
             createMarkers(http.responseText);
             createMyMarker();
         }
@@ -94,13 +78,6 @@ function createMarkers(data) {
         });
         markers[i].setMap(map);
         miles_away = distanceFromMe(lat, lng);
-        
-        /*
-        markers[i].addListener('click', function () {
-            setContent(this.title)
-            infowindows[i].open(map, markers[i])
-        });*/
-        
         google.maps.event.addListener(markers[i], 'click', function() {
             infowindow.setContent(this.title);
             infowindow.open(map, this);
@@ -108,6 +85,7 @@ function createMarkers(data) {
     }
 
 }
+
 function createMyMarker () {
     var image = "stickfigure.png";
     var myMarker = new google.maps.Marker({
@@ -123,6 +101,7 @@ function createMyMarker () {
     myMarker.setMap(map);
     map.panTo(me);
 }
+
 function distanceFromMe(lat, lng) {
     var R = 6371000; // metres
     var φ1 = myLat.toRadians();
@@ -137,6 +116,7 @@ function distanceFromMe(lat, lng) {
     var d = R * c;
     return d;
 }
+
 Number.prototype.toRadians = function() {
    return this * Math.PI / 180;
 }
