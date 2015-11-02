@@ -8,6 +8,9 @@
 	<script>
 	  // Your work will be done here...
 	  var all_logs_str = "";
+
+	  $(document).ready(update_log);
+
 	  $(document).keypress(function (event) {
 	  	if (event.which == 13) {
 	  		var value = $("#msg").val();
@@ -20,6 +23,7 @@
 	  		//update_log();
 	  	}
 	  });
+	  
 	  function console_print() {
 	  	for (key in localStorage) {
 	  		var log_str = key + " - " + localStorage[key];
@@ -36,6 +40,7 @@
 	  	}
 	  	$('#log').html(all_logs_str);
 	  }
+
 	</script>
 </head>
 
