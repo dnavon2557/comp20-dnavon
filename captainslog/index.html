@@ -10,13 +10,30 @@
 	  $(document).keypress(function (event) {
 	  	if (event.which == 13) {
 	  		var value = $("#msg").val();
-	  		localStorage.setItem(new Date(), value);
-	  		console_print();
+	  		var key = new Date();
+	  		localStorage[key] = value;
+	  		var log_str = key +" - "+ value;
+	  		$('#log').append();
+	  		//console_print();
+	  		//update_log();
 	  	}
 	  });
-
 	  function console_print() {
-	  	
+	  	for (key in localStorage) {
+	  		var log_str = key + " - " + localStorage[key];
+	  		console.log(log_str);
+	  	}
+	  }
+
+	  function update_log() {
+	  	var all_logs_str = "";
+	  	for (key in localStorage) {
+	  		var log_str = key + " - " + localStorage[key];
+	  		//if (key instanceof Date){
+	  			all_logs_str += "<p>" +log_str+ "</p>";
+	  		//}
+	  	}
+	  	$('#log').html(all_logs_str);
 	  }
 	</script>
 </head>
