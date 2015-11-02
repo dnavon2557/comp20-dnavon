@@ -7,6 +7,17 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script>
 	  // Your work will be done here...
+	  $(document).keypress(function (event) {
+	  	if (event.which == 13) {
+	  		var value = $("#msg").val();
+	  		localStorage.setItem(new Date(), value);
+	  		console_print();
+	  	}
+	  });
+
+	  function console_print() {
+	  	
+	  }
 	</script>
 </head>
 
