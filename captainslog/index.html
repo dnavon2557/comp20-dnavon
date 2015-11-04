@@ -19,24 +19,14 @@
 	  		var log_str = "<p>" +key+ " - " +value+ "</p>\n";
 	  		all_logs_str = log_str + all_logs_str;
 	  		$('#log').html(all_logs_str);
-	  		//console_print();
-	  		//update_log();
+
 	  	}
 	  });
-	  
-	  function console_print() {
-	  	for (key in localStorage) {
-	  		var log_str = key + " - " + localStorage[key];
-	  		console.log(log_str);
-	  	}
-	  }
 
 	  function update_log() {
 	  	for (key in localStorage) {
 	  		var log_str = key + " - " + localStorage[key];
-	  		//if (key instanceof Date){
-	  			all_logs_str += "<p>" +log_str+ "</p>";
-	  		//}
+			all_logs_str += "<p>" +log_str+ "</p>";
 	  	}
 	  	$('#log').html(all_logs_str);
 	  }
