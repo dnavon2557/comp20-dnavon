@@ -36,7 +36,7 @@ function getMyLocation() {
 //posts to server
 function postToServer () {
     var http = new XMLHttpRequest();
-    var url = "https://secret-about-box.herokuapp.com/sendLocation";
+    var url = "https://calm-headland-3864.herokuapp.com/sendLocation";
     var params = "login=" +myLogin+ "&lat=" +myLat+ "&lng=" 
                 +myLng+ "&message=" +myMessage;
     http.open("POST", url, true);
@@ -65,7 +65,7 @@ function createMarkers(data) {
     var content;
     var miles_away;
     var contentString;
-
+    console.log(data);
     data = JSON.parse(data);
     //loop through for each object, maker a new marker with correct data at correct position
     for (var i = 0; i <data.length; i++) {
